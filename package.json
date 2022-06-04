@@ -1,0 +1,25 @@
+{
+  "name": "todo-tdd",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "tdd": "NODE_ENV=test jest --watchAll --runInBand tests/unit/*.test.js",
+    "test": "NODE_ENV=test jest --runInBand tests/integration/*.test.js",
+    "start": "node index.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.18.1",
+    "express-async-errors": "^3.1.1",
+    "mongodb-memory-server": "^8.6.0",
+    "mongoose": "^6.3.5"
+  },
+  "devDependencies": {
+    "jest": "^28.1.0",
+    "node-mocks-http": "^1.11.0",
+    "supertest": "^6.2.3"
+  }
+}

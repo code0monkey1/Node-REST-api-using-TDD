@@ -11,20 +11,18 @@ const database=require('./database');
 
 if(process.env.NODE_ENV !== 'test'){
 
-  database.connect();
+    database.connect();
 
-  app.listen(3000, () => {
-      console.log('Example app listening on port 3000!');
-    }
-  );
+    app.listen(3000, () => {
+        console.log('Example app listening on port 3000!');
+      }
+      );
 
 }
 
 app.use('/todos', require('./routes/todo.routes'));
 
 app.use(middleware.onlyError)
-
-
 
 
 module.exports =app

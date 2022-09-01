@@ -8,8 +8,8 @@ const endpointUrl = '/todos'
 
 const newTodo= require('../mock-data/new-todo.json')
 
-const allTodos = require('../mock-data/all-todos.json')
 
+const allTodos = require('../mock-data/all-todos.json')
 const TodoModel=require('../../models/todo.model');
 
 
@@ -35,7 +35,7 @@ describe(endpointUrl, () => {
 
     expect(response.body.message.title).toStrictEqual(newTodo.title)
     expect(response.body.message.done).toStrictEqual(newTodo.done)
-
+    
   })
 
   it("should return 500 on malformed data",async()=>{
@@ -79,7 +79,6 @@ describe(endpointUrl, () => {
         .post(endpointUrl)
         .send(newTodo)
 
-    console.log("The id is",todoResponse.body.message._id)
     const response = await request(app)
         .get(`${endpointUrl}/${todoResponse.body.message._id}`)
 
@@ -120,7 +119,7 @@ describe(endpointUrl, () => {
     expect(response.body.message.done).toStrictEqual(modifiedTodo.done)
   })
 
-  it('should give appropriate message with 404 statusCode when given invalid id', async ()=>{
+  it('should give appropriate message with 404 when given invalid id', async ()=>{
 
     const response = await request(app)
         .put(`${endpointUrl}/6298d1ad808e7919c972c41f`)
@@ -150,7 +149,7 @@ describe(endpointUrl, () => {
   }
   )
 
-  it('should give appropriate message with 404 statusCode when given invalid id', async ()=>{
+  it('should give appropriate message with 404 when given invalid id', async ()=>{
       
       const response = await request(app)
           .delete(`${endpointUrl}/6298d1ad808e7919c972c41f`)

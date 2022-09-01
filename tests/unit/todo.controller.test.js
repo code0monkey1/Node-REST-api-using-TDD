@@ -6,7 +6,12 @@ const newTodo=require('../mock-data/new-todo.json');
 const allTodos = require('../mock-data/all-todos.json');
 
 // TodoModel.create =jest.fn();
+
 jest.mock('../../models/todo.model')
+
+const saveMock = jest.fn();
+TodoModel.prototype.save = saveMock;
+
 let req,res,next;
 
 beforeEach(() => {
@@ -16,6 +21,21 @@ beforeEach(() => {
       next=jest.fn();
 
       TodoModel.deleteMany();
+});
+
+describe("TodoController.SaveTodo", () => {
+  beforeEach(() => {
+    req.body = newTodo;
+  });
+
+  it("should have a saveTodo function", () => {
+    expect(typeof todoController.saveTodo).toBe("function");
+  });
+
+  it.skip("should call TodoModel.save", () => {
+    todoController.saveTodo(req, res, next);
+    expect(saveMock).toHaveBeenCalled();
+  });
 });
 
   describe('getTodo', () => {
@@ -35,17 +55,11 @@ beforeEach(() => {
     }
     )
 
-    it('should have a get todos method', () => {
-      expect(typeof todoController.getTodos).toBe('function');
-
-    })
-
     it('should return response code of 201',async() => {
-     await todoController.createTodo(req,res,next);
-      expect(res.statusCode).toBe(201);
+      await todoController.createTodo(req,res,next);
+       expect(res.statusCode).toBe(201);
 
-      //to ensure send is called in the response body
-      expect(res._isEndCalled()).toBe(true);
+       
 
     })
 
@@ -71,7 +85,6 @@ beforeEach(() => {
 
         expect(next).toBeCalledWith(errorMessage);
   });
-
 
   }
   )

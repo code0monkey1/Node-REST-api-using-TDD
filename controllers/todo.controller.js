@@ -9,10 +9,8 @@ exports.getTodo =async (req,res,next) => {
   try{
     const todo = await TodoModel.findById(id);
      
-    if(!todo){
-  
+    if(!todo)
       return res.status(404).json({success:false,message:'Todo not found'});
-    }
 
     res.status(200).json({ success: true, message:todo });
   }
@@ -41,7 +39,7 @@ exports.createTodo = async (req,res,next) => {
   
     const createdTodo = await TodoModel.create(req.body)
 
-   return res.status(201).json({success:true,message:createdTodo});
+    return res.status(201).json({success:true,message:createdTodo});
   }
   catch(err){
     next(err);
@@ -56,9 +54,9 @@ exports.updateTodo = async (req,res,next) => {
       const id = req.params.id;
       const updatedTodo = await TodoModel.findByIdAndUpdate(id,req.body,{new:true});
       
-      if(!updatedTodo){
+      if(!updatedTodo)
         return res.status(404).json({success:false,message:'Todo not found'});
-      }
+      
       res.status(200).json({success:true,message:updatedTodo});
     }
     catch(err){
@@ -72,12 +70,23 @@ exports.deleteTodo = async (req,res,next) => {
     const id = req.params.id;
     const deletedTodo = await TodoModel.findByIdAndDelete(id);
     
-    if(!deletedTodo){
+    if(!deletedTodo)
       return res.status(404).json({success:false,message:'Todo not found'});
-    }
+    
     res.status(200).json({success:true,message:deletedTodo});
   }
   catch(err){
     next(err);
   }
 }
+
+exports.saveTodo = async (req, res, next) => {
+  try {
+    console.log(TodoModel);
+    const createdModel = await TodoModel.create(req.body);
+    console.log(createdModel);
+    createdModel.save();
+  } catch (err) {
+    next(err);
+  }
+};
